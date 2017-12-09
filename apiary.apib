@@ -1,0 +1,177 @@
+FORMAT: 1A
+
+# Agenda
+
+Agenda is a simple API allowing consumers to schedule meeting on-line
+
+# Group Users
+
+Resources related to a users in the API.
+
+## Users Collection [/v1/users]
+
+### User Register [POST]
+
++ Request (application/json)
+
+        {
+            "name":"zhangsan",
+            "password":"12345",
+            "email":"zhangsan@mail2.sysu.edu.cn",
+            "phone":"13567854211"
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /users/zhangsan
+
+    + Body
+
+            {
+                "name":"zhangsan",
+                "password":"12345",
+                "email":"zhang3@mail2.sysu.edu.cn",
+                "phone":"13567854211"
+            }
+
+### delete User [DELETE /v1/users/{name}]
+
++ Parameters
+     - name : `zhangsan` (string, required)
+
++ Request (application/json)
+
+        {
+            "name":"zhangsan",
+            "password":"12345"
+        }
+
++ Response 204 (application/json)
+
+### List all Users [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "name":"zhangsan",
+                "password":"12345",
+                "email":"zhang3@mail2.sysu.edu.cn",
+                "phone":"13567854211"
+            },{
+                "name":"lisi",
+                "password":"12345",
+                "email":"lisi@mail2.sysu.edu.cn",
+                "phone":"13567851234"
+            }
+        ]
+
+### Get User by Name [GET /v1/users/{name}]
+
++ Parameters
+     - name : `zhangsan` (string, required)
+
++ Response 200 (application/json)
+
+        {
+            "name":"zhangsan",
+            "password":"12345",
+            "email":"zhang3@mail2.sysu.edu.cn",
+            "phone":"13567854211"
+        }
+
+### Update User by Name [PATCH /v1/users/{name}]
+
++ Parameters
+     - name : `zhangsan` (string, required)
+
++ Request (application/json)
+
+        {
+            "name":"zhangsan",
+            "password":"12345",
+            "email":"zhangsan@mail2.sysu.edu.cn",
+            "phone":"13567854211"
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /users/zhangsan
+
+    + Body
+
+            {
+                "name":"zhangsan",
+                "password":"12345",
+                "email":"zhang3@mail2.sysu.edu.cn",
+                "phone":"13567854211"
+            }
+
+# Group Meetings
+
+Resources related to a Meetings in the API.
+
+## Meetings Collection [/v1/meetings]
+
+### Create a new meeting [POST]
+
++ Request (application/json)
+
+        {
+            "sponsor":"zhangsan",
+            "participators":["list"],
+            "startDate":"2017-10-31 20:00",
+            "endDate":"2017-11-3 10:00",
+            "title":"computer"
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /meetings/computer
+
+    + Body
+
+            {
+                "sponsor":"zhangsan",
+                "participators":["list"],
+                "startDate":"2017-10-31 20:00",
+                "endDate":"2017-11-3 10:00",
+                "title":"computer"
+            }
+
+### Get Meeting by Title [GET /v1/meeting/{title}{?name}]
+
++ Parameters
+     - title : `computer` (string, required)
+     - name : `zhangsan` (string, required)
+
++ Response 200 (application/json)
+
+        {
+            "sponsor":"zhangsan",
+            "participators":["list"],
+            "startDate":"2017-10-31 20:00",
+            "endDate":"2017-11-3 10:00",
+            "title":"computer"
+        }
+
+### Delete Meeting by Title [DELETE /v1/meetings/{title}]
+
++ Parameters
+     - title : `computer` (string, required)
+
++ Request (application/json)
+
+        {
+            "title":"computer"
+            "name":"zhangsan"
+        }
+
++ Response 204 (application/json)
+
