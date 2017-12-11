@@ -1,0 +1,5 @@
+// 单独只有project的项目
+language:go
+
+go:
+  -1.6
