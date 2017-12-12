@@ -112,7 +112,18 @@ func (agendaS *AgendaService) QueryUserByName(name string) User {
 
 //UpdateUser .
 func (agendaS *AgendaService) UpdateUser(u User) bool {
-	tmp := u
+	tmp := agendaS.QueryUserByName(u.Name)
+	if u.Password == "" {
+		u.Password = tmp.Password
+	}
+	if u.Email == "" {
+		u.Email = tmp.Email
+	}
+	if u.Phone == "" {
+		u.Phone = tmp.Phone
+	}
+
+	tmp = u
 
 	err := userService.Update(&tmp)
 	if err != nil {

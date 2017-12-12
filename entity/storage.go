@@ -208,7 +208,6 @@ func (sto *Storage) UpdateMeetingByTitle(tl string, meeting Meeting) int {
 //UpdateUser .
 func (sto *Storage) UpdateUser(N string, user User) int {
 	count := 0
-	fmt.Println(N)
 	for ur := sto.userList.Front(); ur != nil; ur = ur.Next() {
 		if ur.Value.(User).Name == N {
 			ur.Value = user

@@ -26,7 +26,7 @@ func userRegisterHandler(formatter *render.Render) http.HandlerFunc {
 			formatter.JSON(w, http.StatusBadRequest, struct{ ErrorIndo string }{"Register failed!!!"})
 			return
 		}
-		formatter.JSON(w, http.StatusOK, u)
+		formatter.JSON(w, http.StatusCreated, u)
 	}
 }
 
@@ -109,7 +109,7 @@ func createMeetingHandler(formatter *render.Render) http.HandlerFunc {
 			formatter.JSON(w, http.StatusBadRequest, struct{ ErrorIndo string }{"creating a meeting failed!!!"})
 			return
 		}
-		formatter.JSON(w, http.StatusOK, mt)
+		formatter.JSON(w, http.StatusCreated, mt)
 	}
 }
 
@@ -121,12 +121,16 @@ func getMeetingByTitleHandler(formatter *render.Render) http.HandlerFunc {
 		title := vars["title"]
 
 		req.ParseForm()
-		//name := req.Form["name"][0]
-		name := "zhangsan"
+		name := req.Form["name"][0]
+		//name := "zhangsan"
 
 		fmt.Println(title, name)
 
 		mt := entity.GetAgendaService().QueryAllMeetingByTitle(name, title)
+		if mt.Title == "" {
+			formatter.JSON(w, http.StatusBadRequest, struct{ ErrorIndo string }{"a meeting doesn't exist!!!"})
+			return
+		}
 
 		formatter.JSON(w, http.StatusOK, mt)
 	}
