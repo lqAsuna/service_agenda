@@ -1,6 +1,8 @@
-// 单独只有project的项目
-language:go
+language: go
 
 go:
-  -1.9  // go最新版本
- 
+  - tip # The latest version of Go.
+matrix:
+  allow_failures:
+    - go: tip
+  fast_finish: true
