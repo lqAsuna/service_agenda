@@ -23,7 +23,7 @@ docker pull ishoping/service_agenda:1.0
 - [x] README.md
 - [x] README-yourid.md 记录你的工作摘要（个人评分依据）
 ##### API 开发
-- [x] 使用 [API](https://mensu.docs.apiary.io/#) Blueprint 设计
+- [x] 使用 API Blueprint 设计
 - [x] 资源 URL 命名符合 RESTful 设计标准
 - [x] 资源 CRUD 基本完整
 ##### API 客户端开发
@@ -34,7 +34,7 @@ docker pull ishoping/service_agenda:1.0
 - [x] 建议使用课程提供的服务端框架
 - [x] 必须有 XXX-test.go 文件
 ##### 容器镜像制作
-- [x] 在 docker hub 上生成[镜像](https://hub.docker.com/r/ishoping/service-agenda:1.0/)
+- [x] 在 docker hub 上生成镜像
 - [x] base 镜像 go-1.8
 - [x] 需要加载 sqlite3
 - [x] 同时包含客户端与服务器
