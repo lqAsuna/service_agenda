@@ -17,7 +17,6 @@ package cmd
 import (
 	"fmt"
 	"os"
-	"service_agenda/entity"
 
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
@@ -25,10 +24,11 @@ import (
 )
 
 var cfgFile string
-var (
-	//AgendaS >
-	AgendaS = entity.GetAgendaService()
-)
+
+// var (
+// 	//AgendaS >
+// 	AgendaS = entity.GetAgendaService()
+// )
 
 // RootCmd represents the base command when called without any subcommands
 var RootCmd = &cobra.Command{

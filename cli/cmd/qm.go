@@ -15,9 +15,7 @@
 package cmd
 
 import (
-	"fmt"
-	"io/ioutil"
-	"net/http"
+	"service_agenda/cli/req"
 
 	"github.com/spf13/cobra"
 )
@@ -36,23 +34,7 @@ to quickly create a Cobra application.`,
 		title, _ := cmd.Flags().GetString("title")
 		name, _ := cmd.Flags().GetString("name")
 
-		res, err := http.Get("http://localhost:8080/v1/meetings/" + title + "?name=" + name)
-
-		if err != nil {
-			panic(err)
-		}
-		defer res.Body.Close()
-
-		body, err := ioutil.ReadAll(res.Body)
-		if err != nil {
-			panic(err)
-		}
-
-		if res.StatusCode == http.StatusOK {
-			fmt.Println(string(body))
-		} else {
-			fmt.Println("Get failed")
-		}
+		req.MeetingGet(title, name)
 
 	},
 }

@@ -10,9 +10,10 @@ import (
 
 var engine *xorm.Engine
 
-func init() {
+// Connectdb .
+func Connectdb() {
 	//https://stackoverflow.com/questions/45040319/unsupported-scan-storing-driver-value-type-uint8-into-type-time-time
-	db, err := xorm.NewEngine("sqlite3", "./test.db")
+	db, err := xorm.NewEngine("sqlite3", "./data/test.db")
 	if err != nil {
 		panic(err)
 	}

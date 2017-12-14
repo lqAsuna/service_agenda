@@ -295,3 +295,13 @@ func (agendaS *AgendaService) DeleteMeetingByTitle(user, title string) bool {
 func (agendaS *AgendaService) ReadFromDb() {
 	agendaS.storage.ReadFromDb()
 }
+
+// ReadUser .
+func (agendaS *AgendaService) ReadUser() {
+	agendaS.storage.ReadUser()
+}
+
+// ReadMeeting .
+func (agendaS *AgendaService) ReadMeeting() {
+	agendaS.storage.ReadMeeting()
+}

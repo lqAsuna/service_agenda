@@ -15,10 +15,7 @@
 package cmd
 
 import (
-	"bytes"
-	"encoding/json"
-	"fmt"
-	"net/http"
+	"service_agenda/cli/req"
 	"service_agenda/entity"
 
 	"github.com/spf13/cobra"
@@ -41,32 +38,7 @@ to quickly create a Cobra application.`,
 		phone, _ := cmd.Flags().GetString("phone")
 		ur := entity.GetUser(name, password, email, phone)
 
-		client := &http.Client{}
-
-		b, err := json.Marshal(ur)
-		if err != nil {
-			fmt.Println("json err:", err)
-		}
-		body := bytes.NewBuffer([]byte(b))
-
-		req, err := http.NewRequest(http.MethodPatch, "http://localhost:8080/v1/users/"+name, body)
-		if err != nil {
-			panic(err)
-		}
-
-		req.Header.Set("Content-Type", "application/json;charset=utf-8")
-
-		resp, err := client.Do(req)
-		if err != nil {
-			panic(err)
-		}
-		defer resp.Body.Close()
-
-		if resp.StatusCode == http.StatusCreated {
-			fmt.Println("updated successfully")
-		} else {
-			fmt.Println("updated failed")
-		}
+		req.UserPatch(ur)
 	},
 }
 

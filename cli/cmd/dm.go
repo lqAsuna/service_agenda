@@ -15,10 +15,7 @@
 package cmd
 
 import (
-	"bytes"
-	"encoding/json"
-	"fmt"
-	"net/http"
+	"service_agenda/cli/req"
 	"service_agenda/entity"
 
 	"github.com/spf13/cobra"
@@ -39,33 +36,8 @@ to quickly create a Cobra application.`,
 		name, _ := cmd.Flags().GetString("name")
 
 		mt := entity.GetMeeting(name, []string{}, "2017-01-22 12:00", "2017-02-10 10:00", title)
-		b, err := json.Marshal(mt)
-		if err != nil {
-			fmt.Println("json err:", err)
-		}
-		body := bytes.NewBuffer([]byte(b))
 
-		client := &http.Client{}
-
-		req, err := http.NewRequest(http.MethodDelete, "http://localhost:8080/v1/meetings/"+title, body)
-
-		if err != nil {
-			panic(err)
-		}
-
-		req.Header.Set("Content-Type", "application/json;charset=utf-8")
-
-		resp, err := client.Do(req)
-		if err != nil {
-			panic(err)
-		}
-		defer resp.Body.Close()
-
-		if http.StatusNoContent == resp.StatusCode {
-			fmt.Println("Deleted successfully")
-		} else {
-			fmt.Println("Deleted failed")
-		}
+		req.MeetingDelete(mt)
 	},
 }
 

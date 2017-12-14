@@ -1,9 +1,7 @@
 package cmd
 
 import (
-	"fmt"
-	"io/ioutil"
-	"net/http"
+	"service_agenda/cli/req"
 
 	"github.com/spf13/cobra"
 )
@@ -18,23 +16,7 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		res, err := http.Get("http://localhost:8080/v1/users")
-
-		if err != nil {
-			panic(err)
-		}
-		defer res.Body.Close()
-
-		body, err := ioutil.ReadAll(res.Body)
-		if err != nil {
-			panic(err)
-		}
-
-		if res.StatusCode == http.StatusOK {
-			fmt.Println(string(body))
-		} else {
-			fmt.Println("Get failed")
-		}
+		req.UsersGet()
 	},
 }
 

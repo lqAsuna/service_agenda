@@ -1,10 +1,7 @@
 package cmd
 
 import (
-	"bytes"
-	"encoding/json"
-	"fmt"
-	"net/http"
+	"service_agenda/cli/req"
 	"service_agenda/entity"
 
 	"github.com/spf13/cobra"
@@ -22,33 +19,10 @@ to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		name, _ := cmd.Flags().GetString("name")
 		password, _ := cmd.Flags().GetString("password")
-
-		client := &http.Client{}
 		u := entity.GetUser(name, password, "", "")
 
-		b, err := json.Marshal(u)
-		if err != nil {
-			fmt.Println("json err:", err)
-		}
-		body := bytes.NewBuffer([]byte(b))
+		req.UserDelete(u)
 
-		req, err := http.NewRequest(http.MethodDelete, "http://localhost:8080/v1/users/"+name, body)
-
-		if err != nil {
-			// handle error
-		}
-
-		req.Header.Set("Content-Type", "application/json;charset=utf-8")
-
-		resp, err := client.Do(req)
-		if err != nil {
-			// handle error
-		}
-		defer resp.Body.Close()
-
-		if http.StatusNoContent == resp.StatusCode {
-			fmt.Println("deleted successfully")
-		}
 	},
 }
 

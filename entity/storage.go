@@ -65,100 +65,39 @@ func (sto *Storage) WriteCurUsr(filename string) error {
 	return nil
 }
 
-//ReadFromFile .
-// func (sto *Storage) ReadFromFile(userfilename, meetingfilename string) error {
-// 	var userSlice []User
-// 	var meetingSlice []Meeting
-
-// 	bytes, err := ioutil.ReadFile(userfilename)
-// 	if err != nil {
-// 		fmt.Println("ReadFile: ", err.Error())
-// 		return err
-// 	}
-
-// 	if err = json.Unmarshal(bytes, &userSlice); err != nil {
-// 		fmt.Println("ReadFile: ", err.Error())
-// 		return err
-// 	}
-
-// 	byte2s, err := ioutil.ReadFile(meetingfilename)
-// 	if err != nil {
-// 		fmt.Println("ReadFile: ", err.Error())
-// 		return err
-// 	}
-
-// 	if err := json.Unmarshal(byte2s, &meetingSlice); err != nil {
-// 		fmt.Println("ReadFile: ", err.Error())
-// 		return err
-// 	}
-
-// 	for _, v := range userSlice {
-// 		sto.userList.PushBack(v)
-// 	}
-
-// 	for _, v := range meetingSlice {
-// 		sto.meetingList.PushBack(v)
-// 	}
-
-// 	return nil
-// }
-
-//WirteToFile .
-// func (sto *Storage) WirteToFile(userfilename, meetingfilename string) {
-// 	var userSlice []User
-
-// 	for e := sto.userList.Front(); e != nil; e = e.Next() {
-// 		userSlice = append(userSlice, e.Value.(User))
-// 	}
-
-// 	ub, err := json.Marshal(userSlice)
-// 	if err != nil {
-// 		fmt.Println("error:", err)
-// 	}
-
-// 	file1, err := os.Create(userfilename)
-// 	defer file1.Close()
-// 	if err != nil {
-// 		fmt.Println(file1, err)
-// 		return
-// 	}
-// 	file1.Write(ub)
-
-// 	var meetingSlice []Meeting
-
-// 	for e := sto.meetingList.Front(); e != nil; e = e.Next() {
-// 		meetingSlice = append(meetingSlice, e.Value.(Meeting))
-// 	}
-
-// 	mb, err := json.Marshal(meetingSlice)
-// 	if err != nil {
-// 		fmt.Println("error:", err)
-// 	}
-
-// 	file2, err := os.Create(meetingfilename)
-// 	defer file2.Close()
-// 	if err != nil {
-// 		fmt.Println(file2, err)
-// 		return
-// 	}
-// 	file2.Write(mb)
-
-// }
-
 // ReadFromDb .
 func (sto *Storage) ReadFromDb() {
+	sto.ReadUser()
+	sto.ReadMeeting()
+}
 
+// ReadUser .
+func (sto *Storage) ReadUser() {
 	userSlice := userService.FindAll()
-	meetingSlice := meetingService.FindAll()
 
+	var next *list.Element
+	for e := sto.userList.Front(); e != nil; e = next {
+		next = e.Next()
+		sto.userList.Remove(e)
+	}
 	for _, v := range userSlice {
 		sto.userList.PushBack(v)
+	}
+}
+
+// ReadMeeting .
+func (sto *Storage) ReadMeeting() {
+	meetingSlice := meetingService.FindAll()
+
+	var next *list.Element
+	for e := sto.meetingList.Front(); e != nil; e = next {
+		next = e.Next()
+		sto.meetingList.Remove(e)
 	}
 
 	for _, v := range meetingSlice {
 		sto.meetingList.PushBack(v)
 	}
-
 }
 
 //CreateMeeting .

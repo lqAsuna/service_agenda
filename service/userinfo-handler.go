@@ -2,7 +2,6 @@ package service
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 	"service_agenda/entity"
@@ -37,6 +36,7 @@ func getUserByNameHandler(formatter *render.Render) http.HandlerFunc {
 		vars := mux.Vars(req)
 		name := vars["name"]
 
+		entity.GetAgendaService().ReadUser()
 		u := entity.GetAgendaService().QueryUserByName(name)
 
 		formatter.JSON(w, http.StatusOK, u)
@@ -45,6 +45,7 @@ func getUserByNameHandler(formatter *render.Render) http.HandlerFunc {
 
 func getAllUsersHandler(formatter *render.Render) http.HandlerFunc {
 	return func(w http.ResponseWriter, req *http.Request) {
+		entity.GetAgendaService().ReadUser()
 		ulist := entity.GetAgendaService().QueryAllUsers()
 
 		var userSlice []entity.User
@@ -122,10 +123,8 @@ func getMeetingByTitleHandler(formatter *render.Render) http.HandlerFunc {
 
 		req.ParseForm()
 		name := req.Form["name"][0]
-		//name := "zhangsan"
 
-		fmt.Println(title, name)
-
+		entity.GetAgendaService().ReadMeeting()
 		mt := entity.GetAgendaService().QueryAllMeetingByTitle(name, title)
 		if mt.Title == "" {
 			formatter.JSON(w, http.StatusBadRequest, struct{ ErrorIndo string }{"a meeting doesn't exist!!!"})
