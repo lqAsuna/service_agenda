@@ -34,7 +34,7 @@ docker pull ishoping/service_agenda:1.0
 - [x] 建议使用课程提供的服务端框架
 - [x] 必须有 XXX-test.go 文件
 ##### 容器镜像制作
-- [x] 在 docker hub 上生成[镜像](https://hub.docker.com/r/ishoping/service-agenda/)
+- [x] 在 docker hub 上生成[镜像](https://hub.docker.com/r/ishoping/service-agenda:1.0/)
 - [x] base 镜像 go-1.8
 - [x] 需要加载 sqlite3
 - [x] 同时包含客户端与服务器
